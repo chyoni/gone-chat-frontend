@@ -11,3 +11,5 @@
   - npm i --save react-router-dom @types/react-router-dom
 
 - #04 LoggedOutRoutes (Login)
+
+- #05 Tailwindcss

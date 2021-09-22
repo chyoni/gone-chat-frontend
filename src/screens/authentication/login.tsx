@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const Login: React.FC<{}> = () => {
-  return <div>Login Screen</div>;
+  return <div className="bg-red-200">Login Screen</div>;
 };
