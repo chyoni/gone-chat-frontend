@@ -1,10 +1,15 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { LoggedInRouter } from '../router/LoggedInRouter';
+import { LoggedOutRouter } from '../router/LoggedOutRouter';
+import { getCurrentUser } from '../auth/authService';
 
 export const App: React.FC<{}> = () => {
-  return (
-    <div className="App">
-      <h1>GONE-CHAT-FRONTEND</h1>
-    </div>
-  );
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = getCurrentUser();
+    setCurrentUser(token);
+  }, []);
+
+  return Boolean(currentUser) ? <LoggedInRouter /> : <LoggedOutRouter />;
 };
