@@ -13,3 +13,5 @@
 - #04 LoggedOutRoutes (Login)
 
 - #05 Tailwindcss
+
+- #06 Login Screen Design
