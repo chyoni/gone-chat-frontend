@@ -27,3 +27,5 @@
 - #11 404 Not Found Screen
 
 - #12 Sidebar 1
+
+- #13 Sidebar 2
