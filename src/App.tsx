@@ -8,12 +8,14 @@ export const App: React.FC<{}> = () => {
   const ctx = useContext(AppCtx);
   return (
     <>
-      {Boolean(ctx?.currentUser) ? <LoggedInRouter /> : <LoggedOutRouter />}
-      <ToastContainer
-        position={'top-center'}
-        autoClose={2000}
-        pauseOnHover={true}
-      />
+      <div className="w-full min-w-full flex min-h-screen">
+        {Boolean(ctx?.currentUser) ? <LoggedInRouter /> : <LoggedOutRouter />}
+        <ToastContainer
+          position={'top-center'}
+          autoClose={2000}
+          pauseOnHover={true}
+        />
+      </div>
     </>
   );
 };

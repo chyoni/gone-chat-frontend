@@ -25,3 +25,5 @@
 - #10 Request Error Handling
 
 - #11 404 Not Found Screen
+
+- #12 Sidebar 1
