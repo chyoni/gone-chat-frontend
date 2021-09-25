@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import bgImg from '../../assets/chat-login.jpg';
 import { ErrMessage } from '../../components/error-message';
 
@@ -15,6 +16,7 @@ export const Signup: React.FC<{}> = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ICreateUserFormData>();
 
@@ -31,7 +33,15 @@ export const Signup: React.FC<{}> = () => {
       })
       .then((res) => {
         if (res.status === 201) {
-          history.push('/');
+          toast.success('sign up successfully!');
+          setTimeout(() => {
+            history.push('/');
+          }, 2500);
+        } else {
+          toast.error(res.data.error_message);
+          setValue('username', '');
+          setValue('password', '');
+          setValue('alias', '');
         }
       });
   };
