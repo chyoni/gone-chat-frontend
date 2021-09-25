@@ -15,3 +15,5 @@
 - #05 Tailwindcss
 
 - #06 Login Screen Design
+
+- #07 Implement Global State with context
