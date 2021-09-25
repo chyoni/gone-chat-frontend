@@ -17,3 +17,5 @@
 - #06 Login Screen Design
 
 - #07 Implement Global State with context
+
+- #08 Signup Implement

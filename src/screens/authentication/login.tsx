@@ -6,7 +6,7 @@ import bgImg from '../../assets/chat-login.jpg';
 import { ErrMessage } from '../../components/error-message';
 import { AppCtx } from '../../contexts/global-context';
 
-interface FormData {
+interface ILoginFormData {
   username: string;
   password: string;
 }
@@ -16,11 +16,11 @@ export const Login: React.FC<{}> = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<ILoginFormData>();
 
   const ctx = useContext(AppCtx);
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+  const onSubmit: SubmitHandler<ILoginFormData> = (data: ILoginFormData) => {
     axios
       .post('http://localhost:4000/login', {
         username: data.username,
