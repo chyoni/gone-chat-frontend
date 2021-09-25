@@ -37,12 +37,13 @@ export const Signup: React.FC<{}> = () => {
           setTimeout(() => {
             history.push('/');
           }, 2500);
-        } else {
-          toast.error(res.data.error_message);
-          setValue('username', '');
-          setValue('password', '');
-          setValue('alias', '');
         }
+      })
+      .catch((err) => {
+        toast.error(err.response.data.error_message);
+        setValue('username', '');
+        setValue('password', '');
+        setValue('alias', '');
       });
   };
 

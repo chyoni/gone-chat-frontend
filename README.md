@@ -21,3 +21,5 @@
 - #08 Signup Implement
 
 - #09 Toast message
+
+- #10 Request Error Handling

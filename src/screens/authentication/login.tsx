@@ -30,11 +30,10 @@ export const Login: React.FC<{}> = () => {
       .then((res) => {
         if (res.status === 200) {
           ctx.modifyCurrentUser(res.data.token.access_token);
-          // 200이나 201이 아닌 이상 서버에서는 처리를 해서 돌려줘도
-          // http에서 이 자체를 에러로 반환해서 200 이외의 status code를 찍으면 그냥 무조건 콘솔에서 에러를 발생함
-          // 이거를 해결하려면 우리가 만든 서버 자체적으로 code, error를 response에 찍어주고 반환은 무조건 200으로 때려야 함 그래야
-          // http에서 200, 201아닌 status일 때 에러를 반환안할 수 있기 때문에 그래도 하나 알아가네
         }
+      })
+      .catch((err) => {
+        toast.error(err.response.data.error_message);
       });
   };
 
