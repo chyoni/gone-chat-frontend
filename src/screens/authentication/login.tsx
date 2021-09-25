@@ -70,6 +70,7 @@ export const Login: React.FC<{}> = () => {
           {errors.username && <ErrMessage message={errors.username?.message} />}
           <input
             {...register('password', { required: 'Password is required.' })}
+            type="password"
             placeholder="Password"
             className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
           />

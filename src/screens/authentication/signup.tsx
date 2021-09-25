@@ -9,6 +9,7 @@ import { ErrMessage } from '../../components/error-message';
 interface ICreateUserFormData {
   username: string;
   password: string;
+  confirm_password: string;
   alias: string;
 }
 
@@ -29,6 +30,7 @@ export const Signup: React.FC<{}> = () => {
       .post('http://localhost:4000/user', {
         username: data.username,
         password: data.password,
+        confirm_password: data.confirm_password,
         alias: data.alias,
       })
       .then((res) => {
@@ -43,6 +45,7 @@ export const Signup: React.FC<{}> = () => {
         toast.error(err.response.data.error_message);
         setValue('username', '');
         setValue('password', '');
+        setValue('confirm_password', '');
         setValue('alias', '');
       });
   };
@@ -80,10 +83,22 @@ export const Signup: React.FC<{}> = () => {
           {errors.username && <ErrMessage message={errors.username?.message} />}
           <input
             {...register('password', { required: 'Password is required.' })}
+            type="password"
             placeholder="Password"
             className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
           />
           {errors.password && <ErrMessage message={errors.password?.message} />}
+          <input
+            {...register('confirm_password', {
+              required: 'Confirm password is required.',
+            })}
+            type="password"
+            placeholder="Confirm Password"
+            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
+          />
+          {errors.confirm_password && (
+            <ErrMessage message={errors.confirm_password?.message} />
+          )}
           <input
             {...register('alias')}
             placeholder="Alias"

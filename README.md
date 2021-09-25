@@ -23,3 +23,5 @@
 - #09 Toast message
 
 - #10 Request Error Handling
+
+- #11 404 Not Found Screen
