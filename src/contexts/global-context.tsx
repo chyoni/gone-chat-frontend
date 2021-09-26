@@ -14,6 +14,7 @@ export interface AppContextInterface {
   modifyCurrentUser: (token: string) => void;
   me: IGetMeInterface;
   modifyMe: (setMePayload: IGetMeInterface) => void;
+  removeToken: () => void;
 }
 
 const defaultAppCtxValue = {
@@ -28,6 +29,7 @@ const defaultAppCtxValue = {
     updated_at: 0,
   },
   modifyMe: (setMePayload: IGetMeInterface) => console.log(setMePayload),
+  removeToken: () => null,
 };
 
 export const AppCtx = createContext<AppContextInterface>(defaultAppCtxValue);
@@ -45,8 +47,14 @@ export const AppCtxProvider = ({ children }: { children: React.ReactNode }) => {
   const modifyMe = (setMePayload: IGetMeInterface) => {
     setMe(setMePayload);
   };
+  const removeToken = () => {
+    setCurrentUser('');
+    localStorage.removeItem('token');
+  };
   return (
-    <AppCtx.Provider value={{ currentUser, modifyCurrentUser, me, modifyMe }}>
+    <AppCtx.Provider
+      value={{ currentUser, modifyCurrentUser, me, modifyMe, removeToken }}
+    >
       {children}
     </AppCtx.Provider>
   );

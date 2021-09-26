@@ -29,3 +29,5 @@
 - #12 Sidebar 1
 
 - #13 Sidebar 2
+
+- #14 Sidebar 3

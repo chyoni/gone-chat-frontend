@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useContext, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import defaultAvatar from '../assets/default-avatar.jpeg';
 import { AppCtx } from '../contexts/global-context';
@@ -26,6 +26,11 @@ export const Sidebar = () => {
       .then((res) => {
         if (res.status === 200) {
           ctx.modifyMe(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.token_refresh_flag) {
+          ctx.removeToken();
         }
       });
     // eslint-disable-next-line
