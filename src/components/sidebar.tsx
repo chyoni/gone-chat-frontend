@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import defaultAvatar from '../assets/default-avatar.jpeg';
 import { AppCtx } from '../contexts/global-context';
 
@@ -10,7 +10,7 @@ export const Sidebar = () => {
 
   const isValidPath = (): boolean => {
     const currentPath = history.location.pathname;
-    if (currentPath !== '/') {
+    if (currentPath !== '/' && currentPath !== '/edit') {
       return false;
     }
     return true;
@@ -42,15 +42,15 @@ export const Sidebar = () => {
         <img
           src={ctx.me.avatar !== '' ? ctx.me.avatar : defaultAvatar}
           alt={'user-avatar'}
-          className="bg-center bg-cover w-28 h-28 rounded-full"
+          className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full"
         />
         <div className="w-full h-full flex items-center ml-5">
-          <span className="w-4/5 text-2xl text-gray-500 font-bold">
+          <span className="w-4/5 text-2xl text-black font-bold">
             {ctx.me.alias !== '' ? ctx.me.alias : 'Anonymous'}
           </span>
           <div className="w-1/5 flex items-center justify-center">
             <button className=" px-3 py-1 rounded-md bg-white text-yellow-600">
-              Edit
+              <Link to={'/edit'}>Edit</Link>
             </button>
           </div>
         </div>
