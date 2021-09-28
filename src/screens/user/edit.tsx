@@ -1,17 +1,19 @@
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import FormData from 'form-data';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import defaultAvatar from '../../assets/default-avatar.jpeg';
 import { ErrMessage } from '../../components/error-message';
 import { AppCtx } from '../../contexts/global-context';
+import { Loading } from '../../components/loading';
 
 interface IUpdateFormData {
   alias: string;
 }
 
 export const Edit = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const ctx = useContext(AppCtx);
   const {
     register,
@@ -24,6 +26,7 @@ export const Edit = () => {
   };
 
   const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
     const formData = new FormData();
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -35,13 +38,21 @@ export const Edit = () => {
             'Content-Type': 'multipart/form-data',
           },
         })
-        .then((res) => {})
+        .then((res) => {
+          if (res.status === 200) {
+            const me = ctx.me;
+            ctx.modifyMe({ ...me, avatar: res.data.filepath });
+            setLoading(false);
+          }
+        })
         .catch((err) => {
           if (err.response.data.token_refresh_flag) {
+            setLoading(false);
             ctx.removeToken();
           }
         });
     } else {
+      setLoading(false);
       toast.error('None of the files were selected');
       return;
     }
@@ -54,11 +65,15 @@ export const Edit = () => {
           className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full cursor-pointer bg-red-50"
           htmlFor={'input-file'}
         >
-          <img
-            src={ctx.me.avatar !== '' ? ctx.me.avatar : defaultAvatar}
-            alt={'user-avatar'}
-            className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full"
-          />
+          {loading ? (
+            <Loading />
+          ) : (
+            <img
+              src={ctx.me.avatar !== '' ? ctx.me.avatar : defaultAvatar}
+              alt={'user-avatar'}
+              className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full"
+            />
+          )}
         </label>
         <input
           type="file"

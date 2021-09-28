@@ -1,12 +1,12 @@
 import React, { createContext, useState } from 'react';
 
 interface IGetMeInterface {
-  id: number;
-  username: string;
-  alias: string;
-  avatar: string;
-  created_at: number;
-  updated_at: number;
+  id?: number;
+  username?: string;
+  alias?: string;
+  avatar?: string;
+  created_at?: number;
+  updated_at?: number;
 }
 
 export interface AppContextInterface {

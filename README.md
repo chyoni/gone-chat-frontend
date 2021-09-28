@@ -33,3 +33,5 @@
 - #14 Sidebar 3
 
 - #15 Edit Screen 1
+
+- #16 Edit Screen 2 (Avatar DONE)
