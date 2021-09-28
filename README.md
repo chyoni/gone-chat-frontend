@@ -35,3 +35,5 @@
 - #15 Edit Screen 1
 
 - #16 Edit Screen 2 (Avatar DONE)
+
+- #17 Edit Screen 3 (Alias DONE)

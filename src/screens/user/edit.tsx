@@ -15,6 +15,7 @@ interface IUpdateFormData {
 export const Edit = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const ctx = useContext(AppCtx);
+  const me = ctx.me;
   const {
     register,
     handleSubmit,
@@ -22,7 +23,30 @@ export const Edit = () => {
   } = useForm<IUpdateFormData>();
 
   const onSubmit: SubmitHandler<IUpdateFormData> = (data: IUpdateFormData) => {
-    console.log(data);
+    const newAlias = data.alias;
+    axios
+      .post(
+        `http://localhost:4000/user/alias/${ctx.me.id}`,
+        {
+          alias: newAlias,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${ctx.currentUser}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          ctx.modifyMe({ ...me, alias: res.data.alias });
+          toast.success('Alias updated !');
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.token_refresh_flag) {
+          ctx.removeToken();
+        }
+      });
   };
 
   const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +64,7 @@ export const Edit = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            const me = ctx.me;
+            toast.success('Avatar updated !');
             ctx.modifyMe({ ...me, avatar: res.data.filepath });
             setLoading(false);
           }
