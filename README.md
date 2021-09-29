@@ -39,3 +39,5 @@
 - #17 Edit Screen 3 (Alias DONE)
 
 - #18 Edit Screen 4 (Change Password DONE)
+
+- #19 Edit Screen 5 (Logout / Home Quick Button)
