@@ -4,6 +4,7 @@ import { Home } from '../screens/home/home';
 import { Edit } from '../screens/user/edit';
 import { NotFoundPage } from '../screens/utils/404';
 import { Sidebar } from '../components/sidebar';
+import { ChangePassword } from '../screens/user/change-password';
 
 const LoggedInRoutes = () => {
   return (
@@ -13,6 +14,9 @@ const LoggedInRoutes = () => {
       </Route>
       <Route path={'/edit'} exact={true}>
         <Edit />
+      </Route>
+      <Route path={'/change-password'} exact={true}>
+        <ChangePassword />
       </Route>
       <Route path={'*'}>
         <NotFoundPage />
