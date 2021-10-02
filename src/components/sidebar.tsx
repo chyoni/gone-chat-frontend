@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import defaultAvatar from '../assets/default-avatar.jpeg';
@@ -6,14 +6,20 @@ import { AppCtx } from '../contexts/global-context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
+import { RoomCard } from './room-card';
 
 export const Sidebar = () => {
   const ctx = useContext(AppCtx);
   const history = useHistory();
+  const [myRooms, setMyRooms] = useState<Array<number>>([]);
 
   const isValidPath = (): boolean => {
     const currentPath = history.location.pathname;
-    if (currentPath !== '/' && currentPath !== '/edit') {
+    if (
+      currentPath !== '/' &&
+      currentPath !== '/edit' &&
+      currentPath !== '/change-password'
+    ) {
       return false;
     }
     return true;
@@ -53,6 +59,7 @@ export const Sidebar = () => {
         }
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
         }
@@ -60,8 +67,28 @@ export const Sidebar = () => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/user/room/${ctx.me.id}`, {
+        headers: {
+          Authorization: `Bearer ${ctx.currentUser}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setMyRooms(res.data.room_id);
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.token_refresh_flag) {
+          ctx.removeToken();
+        }
+      });
+    // eslint-disable-next-line
+  }, [ctx.me.id]);
+
   return isValidPath() ? (
-    <div className="relative w-1/4 min-h-screen bg-yellow-300 rounded-md flex flex-col">
+    <div className="w-1/4 min-h-screen bg-gray-800 rounded-md flex flex-col">
       <div className="w-full h-32 p-3 flex items-center">
         <div className="w-2/4 flex items-center justify-center">
           <img
@@ -71,28 +98,39 @@ export const Sidebar = () => {
           />
         </div>
         <div className="w-full h-full flex items-center">
-          <span className="w-4/5 text-2xl text-black font-bold">
+          <span className="w-4/5 text-2xl text-white font-bold">
             {ctx.me.alias !== '' ? ctx.me.alias : 'Anonymous'}
           </span>
           <div className="w-1/5 flex items-center justify-center">
-            <button className="px-3 py-1 rounded-md bg-white text-yellow-600">
+            <button className="px-3 py-1 rounded-md bg-white text-gray-700">
               <Link to={'/edit'}>Edit</Link>
             </button>
           </div>
         </div>
       </div>
-      <div className="h-full w-full"></div>
-      <div className="absolute bottom-0 w-full px-3 py-5 border-t-2 border-white flex justify-between items-center">
+      <div className="h-full w-full overflow-y-auto flex flex-col">
+        <div className="py-2 border-b border-white text-white font-medium mb-5">
+          Active Rooms
+        </div>
+        {myRooms.map((room, index) => {
+          return <RoomCard key={index} roomId={room} />;
+        })}
+      </div>
+      <div className="w-full px-3 py-5 border-t-2 border-white flex justify-between items-center">
         <div>
           <Link to={'/'}>
-            <FontAwesomeIcon icon={faHome} size={'lg'} />
+            <FontAwesomeIcon
+              icon={faHome}
+              size={'lg'}
+              className="text-white cursor-pointer"
+            />
           </Link>
         </div>
         <div>
           <FontAwesomeIcon
             icon={faSignOutAlt}
             size={'lg'}
-            className="cursor-pointer"
+            className="cursor-pointer text-white"
             onClick={handleLogout}
           />
         </div>
