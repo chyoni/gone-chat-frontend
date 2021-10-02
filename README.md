@@ -45,3 +45,5 @@
 - #20 Get My Rooms
 
 - #21 Refactoring Design
+
+- #22 User Deleted and Implement Modal POPUP

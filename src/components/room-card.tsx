@@ -38,7 +38,7 @@ export const RoomCard: React.FC<IRoomCardProps> = ({ roomId }) => {
 
   return (
     <div className="max-w-full flex items-center justify-center overflow-y-auto max-h-screen">
-      <div className="w-1/2 p-4 rounded-lg bg-white mb-4 border-2 hover:border-green-300 transition-colors cursor-pointer flex flex-col">
+      <div className="w-1/2 p-3 rounded-lg bg-white mb-4 border-2 hover:border-green-300 transition-colors cursor-pointer flex flex-col">
         <span className="text-sm">#{roomId}</span>
         <div className="overflow-x-hidden">
           {participants !== undefined &&

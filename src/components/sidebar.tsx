@@ -6,6 +6,8 @@ import { AppCtx } from '../contexts/global-context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowAltCircleDown,
+  faCog,
+  faFolderOpen,
   faHome,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +24,8 @@ export const Sidebar = () => {
     if (
       currentPath !== '/' &&
       currentPath !== '/edit' &&
-      currentPath !== '/change-password'
+      currentPath !== '/change-password' &&
+      currentPath !== '/settings'
     ) {
       return false;
     }
@@ -39,6 +42,7 @@ export const Sidebar = () => {
       .then((res) => {
         if (res.status === 200) {
           ctx.removeToken();
+          history.push('/');
           return;
         }
         toast.error('something wrong happen. try again later.');
@@ -98,7 +102,7 @@ export const Sidebar = () => {
           <img
             src={ctx.me.avatar !== '' ? ctx.me.avatar : defaultAvatar}
             alt={'user-avatar'}
-            className="bg-center bg-contain bg-no-repeat w-40 h-40 rounded-full mr-5"
+            className="bg-center bg-contain bg-no-repeat w-36 h-36 rounded-full mr-5"
           />
           <div className="w-3/4 h-full flex items-center">
             <span className="w-4/5 text-2xl text-white font-bold">
@@ -115,25 +119,36 @@ export const Sidebar = () => {
           Active Rooms
         </div>
       </div>
-      <div className="h-full w-full flex flex-col">
-        {myRooms.map((room, index) => {
-          if (index + 1 > 6) {
-            return null;
-          }
-          return <RoomCard key={index} roomId={room} />;
-        })}
-        {myRooms.length > 6 && (
-          <div className="flex items-center justify-center mt-5">
-            <Link to={'/rooms'}>
-              <FontAwesomeIcon
-                icon={faArrowAltCircleDown}
-                size={'2x'}
-                className="text-white cursor-pointer hover:text-green-400 transition-colors"
-              />
-            </Link>
-          </div>
-        )}
-      </div>
+      {myRooms !== null ? (
+        <div className="h-full w-full flex flex-col">
+          {myRooms.map((room, index) => {
+            if (index + 1 > 6) {
+              return null;
+            }
+            return <RoomCard key={index} roomId={room} />;
+          })}
+          {myRooms.length > 6 && (
+            <div className="flex items-center justify-center mt-5">
+              <Link to={'/rooms'}>
+                <FontAwesomeIcon
+                  icon={faArrowAltCircleDown}
+                  size={'2x'}
+                  className="text-white cursor-pointer hover:text-green-400 transition-colors"
+                />
+              </Link>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="h-full w-full flex flex-col items-center justify-center">
+          <FontAwesomeIcon
+            icon={faFolderOpen}
+            size={'4x'}
+            className="text-white"
+          />
+          <span className="text-white mt-3">There's no activated rooms.</span>
+        </div>
+      )}
       <div className="w-full px-3 py-5 border-t-2 border-white flex justify-between items-center">
         <div>
           <Link to={'/'}>
@@ -144,13 +159,24 @@ export const Sidebar = () => {
             />
           </Link>
         </div>
-        <div>
-          <FontAwesomeIcon
-            icon={faSignOutAlt}
-            size={'lg'}
-            className="cursor-pointer text-white hover:text-green-400 transition-colors"
-            onClick={handleLogout}
-          />
+        <div className="flex items-center justify-evenly">
+          <div className="mr-4">
+            <Link to={'/settings'}>
+              <FontAwesomeIcon
+                icon={faCog}
+                size={'lg'}
+                className="cursor-pointer text-white hover:text-green-400 transition-colors"
+              />
+            </Link>
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={faSignOutAlt}
+              size={'lg'}
+              className="cursor-pointer text-white hover:text-green-400 transition-colors"
+              onClick={handleLogout}
+            />
+          </div>
         </div>
       </div>
     </div>
