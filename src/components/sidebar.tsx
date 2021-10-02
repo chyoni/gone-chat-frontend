@@ -4,7 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import defaultAvatar from '../assets/default-avatar.jpeg';
 import { AppCtx } from '../contexts/global-context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowAltCircleDown,
+  faHome,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import { RoomCard } from './room-card';
 
@@ -88,33 +92,47 @@ export const Sidebar = () => {
   }, [ctx.me.id]);
 
   return isValidPath() ? (
-    <div className="w-1/4 min-h-screen bg-gray-800 rounded-md flex flex-col">
-      <div className="w-full h-32 p-3 flex items-center">
-        <div className="w-2/4 flex items-center justify-center">
+    <div className="w-1/4 h-auto bg-gray-800 flex flex-col overflow-y-auto">
+      <div className="w-full h-auto p-3 flex flex-col">
+        <div className="w-full flex items-center justify-center mb-3">
           <img
             src={ctx.me.avatar !== '' ? ctx.me.avatar : defaultAvatar}
             alt={'user-avatar'}
-            className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full"
+            className="bg-center bg-contain bg-no-repeat w-40 h-40 rounded-full mr-5"
           />
-        </div>
-        <div className="w-full h-full flex items-center">
-          <span className="w-4/5 text-2xl text-white font-bold">
-            {ctx.me.alias !== '' ? ctx.me.alias : 'Anonymous'}
-          </span>
-          <div className="w-1/5 flex items-center justify-center">
-            <button className="px-3 py-1 rounded-md bg-white text-gray-700">
-              <Link to={'/edit'}>Edit</Link>
-            </button>
+          <div className="w-3/4 h-full flex items-center">
+            <span className="w-4/5 text-2xl text-white font-bold">
+              {ctx.me.alias !== '' ? ctx.me.alias : 'Anonymous'}
+            </span>
+            <div className="w-1/5 flex items-center justify-center">
+              <button className="px-3 py-1 rounded-md bg-white text-gray-700 border hover:border-green-400 transition-colors">
+                <Link to={'/edit'}>Edit</Link>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="h-full w-full overflow-y-auto flex flex-col">
         <div className="py-2 border-b border-white text-white font-medium mb-5">
           Active Rooms
         </div>
+      </div>
+      <div className="h-full w-full flex flex-col">
         {myRooms.map((room, index) => {
+          if (index + 1 > 6) {
+            return null;
+          }
           return <RoomCard key={index} roomId={room} />;
         })}
+        {myRooms.length > 6 && (
+          <div className="flex items-center justify-center mt-5">
+            <Link to={'/rooms'}>
+              <FontAwesomeIcon
+                icon={faArrowAltCircleDown}
+                size={'2x'}
+                className="text-white cursor-pointer hover:text-green-400 transition-colors"
+              />
+            </Link>
+          </div>
+        )}
       </div>
       <div className="w-full px-3 py-5 border-t-2 border-white flex justify-between items-center">
         <div>
@@ -122,7 +140,7 @@ export const Sidebar = () => {
             <FontAwesomeIcon
               icon={faHome}
               size={'lg'}
-              className="text-white cursor-pointer"
+              className="text-white cursor-pointer hover:text-green-400 transition-colors"
             />
           </Link>
         </div>
@@ -130,7 +148,7 @@ export const Sidebar = () => {
           <FontAwesomeIcon
             icon={faSignOutAlt}
             size={'lg'}
-            className="cursor-pointer text-white"
+            className="cursor-pointer text-white hover:text-green-400 transition-colors"
             onClick={handleLogout}
           />
         </div>

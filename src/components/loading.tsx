@@ -1,5 +1,5 @@
 import React from 'react';
-import loadImg from '../assets/load.jpeg';
+import loadImg from '../assets/loading.jpeg';
 
 export const Loading = () => {
   return (

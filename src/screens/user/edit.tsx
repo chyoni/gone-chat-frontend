@@ -84,7 +84,7 @@ export const Edit = () => {
   };
 
   return (
-    <div className="w-3/4 min-h-screen flex flex-col items-center justify-center">
+    <div className="w-3/4 min-h-screen flex flex-col items-center justify-center bg-gray-700">
       <div className="w-1/3 p-2 flex items-center justify-center border border-gray-200 rounded-md mb-5">
         <label
           className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full cursor-pointer bg-red-50"
@@ -115,10 +115,10 @@ export const Edit = () => {
             })}
             type="text"
             placeholder={ctx.me.alias}
-            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
+            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm bg-gray-700"
           />
           {errors.alias && <ErrMessage message={errors.alias?.message} />}
-          <button className="bg-yellow-300 p-3 w-full text-white font-medium text-xl rounded-sm">
+          <button className="bg-blue-500 hover:bg-blue-600 transition-colors p-3 w-full text-white font-medium text-xl rounded-sm">
             Update Alias
           </button>
         </form>

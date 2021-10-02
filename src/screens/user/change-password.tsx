@@ -58,7 +58,7 @@ export const ChangePassword = () => {
   };
 
   return (
-    <div className="w-3/4 min-h-screen flex flex-col items-center justify-center">
+    <div className="w-3/4 min-h-screen flex flex-col items-center justify-center bg-gray-700">
       <div className="border border-gray-200 rounded-md w-1/3 p-2">
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -67,7 +67,7 @@ export const ChangePassword = () => {
             })}
             type="password"
             placeholder={'Current Password'}
-            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
+            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm bg-gray-700"
           />
           {errors.currentPassword && (
             <ErrMessage message={errors.currentPassword?.message} />
@@ -78,7 +78,7 @@ export const ChangePassword = () => {
             })}
             type="password"
             placeholder={'New Password'}
-            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
+            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm bg-gray-700"
           />
           {errors.newPassword && (
             <ErrMessage message={errors.newPassword?.message} />
@@ -89,12 +89,12 @@ export const ChangePassword = () => {
             })}
             type="password"
             placeholder={'Confirm New Password'}
-            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm"
+            className="focus:outline-none focus:border-gray-500 p-3 w-full mb-3 border border-gray-300 rounded-sm text-sm bg-gray-700"
           />
           {errors.confirmNewPassword && (
             <ErrMessage message={errors.confirmNewPassword?.message} />
           )}
-          <button className="bg-yellow-300 p-3 w-full text-white font-medium text-xl rounded-sm">
+          <button className="bg-blue-500 hover:bg-blue-600 transition-colors p-3 w-full text-white font-medium text-xl rounded-sm">
             Change Password
           </button>
         </form>

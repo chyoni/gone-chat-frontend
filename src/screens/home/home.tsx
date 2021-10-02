@@ -1,5 +1,18 @@
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 export const Home: React.FC<{}> = () => {
-  return <div className="w-3/4 min-h-screen">Home</div>;
+  return (
+    <div className="relative w-3/4 h-auto bg-gray-700 flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
+        <FontAwesomeIcon icon={faComment} size={'10x'} className="text-white" />
+        <div className="text-white text-xl mt-5 font-semibold">
+          Welcome GoneChat App
+        </div>
+        <div className="text-white text-sm mt-5">© Chyonee 2021</div>
+      </div>
+      {/* <div className="absolute bottom-0 p-5 w-full border border-indigo-600"></div> */}
+    </div>
+  );
 };

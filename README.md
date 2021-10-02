@@ -43,3 +43,5 @@
 - #19 Edit Screen 5 (Logout / Home Quick Button)
 
 - #20 Get My Rooms
+
+- #21 Refactoring Design
