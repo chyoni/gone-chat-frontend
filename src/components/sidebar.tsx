@@ -21,11 +21,13 @@ export const Sidebar = () => {
 
   const isValidPath = (): boolean => {
     const currentPath = history.location.pathname;
+    const regex = new RegExp('/room/[0-9]+');
     if (
       currentPath !== '/' &&
       currentPath !== '/edit' &&
       currentPath !== '/change-password' &&
-      currentPath !== '/settings'
+      currentPath !== '/settings' &&
+      !currentPath.match(regex)
     ) {
       return false;
     }

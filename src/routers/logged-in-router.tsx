@@ -6,6 +6,7 @@ import { NotFoundPage } from '../screens/utils/404';
 import { Sidebar } from '../components/sidebar';
 import { ChangePassword } from '../screens/user/change-password';
 import { Settings } from '../screens/user/settings';
+import { Room } from '../screens/room/room';
 
 const LoggedInRoutes = () => {
   return (
@@ -21,6 +22,9 @@ const LoggedInRoutes = () => {
       </Route>
       <Route path={'/settings'} exact={true}>
         <Settings />
+      </Route>
+      <Route path={'/room/:roomId'} exact={true}>
+        <Room />
       </Route>
       <Route path={'*'}>
         <NotFoundPage />

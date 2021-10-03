@@ -12,7 +12,6 @@ export const Home: React.FC<{}> = () => {
         </div>
         <div className="text-white text-sm mt-5">© Chyonee 2021</div>
       </div>
-      {/* <div className="absolute bottom-0 p-5 w-full border border-indigo-600"></div> */}
     </div>
   );
 };
