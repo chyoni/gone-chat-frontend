@@ -8,6 +8,7 @@ import { ErrMessage } from '../../components/error-message';
 import { AppCtx } from '../../contexts/global-context';
 import { Loading } from '../../components/loading';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 interface IUpdateFormData {
   alias: string;
@@ -87,6 +88,9 @@ export const Edit = () => {
 
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center justify-center bg-gray-700">
+      <Helmet>
+        <title>Edit Profile</title>
+      </Helmet>
       <div className="w-1/3 p-2 flex items-center justify-center border border-gray-200 rounded-md mb-5">
         <label
           className="bg-center bg-contain bg-no-repeat w-28 h-28 rounded-full cursor-pointer bg-red-50"

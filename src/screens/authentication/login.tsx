@@ -6,6 +6,7 @@ import bgImg from '../../assets/chat-login.jpg';
 import { ErrMessage } from '../../components/error-message';
 import { AppCtx } from '../../contexts/global-context';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 interface ILoginFormData {
   username: string;
@@ -40,6 +41,9 @@ export const Login: React.FC<{}> = () => {
 
   return (
     <div className="container min-w-full min-h-screen flex">
+      <Helmet>
+        <title>Sign In</title>
+      </Helmet>
       <div
         className="w-3/6 min-h-screen bg-cover bg-center flex flex-col items-center"
         style={{ backgroundImage: `url(${bgImg})` }}

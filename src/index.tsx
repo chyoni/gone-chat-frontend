@@ -4,11 +4,14 @@ import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App';
 import { AppCtxProvider } from './contexts/global-context';
+import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.render(
   <React.StrictMode>
     <AppCtxProvider>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </AppCtxProvider>
   </React.StrictMode>,
   document.getElementById('root')

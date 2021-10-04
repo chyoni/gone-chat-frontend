@@ -5,6 +5,8 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { AppCtx } from '../../contexts/global-context';
+import { Helmet } from 'react-helmet-async';
+import { Message } from '../../components/message';
 
 interface IParams {
   roomId: string;
@@ -23,7 +25,7 @@ type fromUser = {
   updated_at: number;
 };
 
-interface IRoomMessages {
+export interface IRoomMessages {
   roomId: number;
   from: fromUser;
   message: string;
@@ -112,20 +114,34 @@ export const Room = () => {
     }
   };
 
-  console.log(roomMessages);
-
   return (
-    <div className="w-3/4 h-auto max-h-full px-3 bg-gray-700 flex flex-col items-center justify-center">
+    <div className="w-3/4 min-h-screen px-3 bg-gray-700 flex flex-col items-center justify-center">
+      <Helmet>
+        <title>#{roomId} ChatRoom</title>
+      </Helmet>
       <div className="flex items-center w-full py-3 border-b border-gray-300 text-white font-semibold">
         <span>#{roomId}</span>
       </div>
-      <div
-        className="w-full h-full border-b-2 border-gray-300"
-        style={{ overflowY: 'hidden' }}
-      >
-        <div className="w-full h-full"></div>
+      <div className="w-full h-full border-b-2 border-gray-300 box-border">
+        <div className="w-full overflow-y-auto flex flex-col">
+          {roomMessages.map((message, index) => {
+            return (
+              <div key={index} className="w-full mb-2">
+                {message.from.id === ctx.me.id ? (
+                  <div className="h-full float-right px-3 py-2">
+                    <Message message={message} />
+                  </div>
+                ) : (
+                  <div className="h-full float-left px-3 py-2">
+                    <Message message={message} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div className="flex h-auto mt-4 w-full">
+      <div className="flex mt-4 w-full">
         <form
           className="w-full flex items-center"
           onSubmit={handleSubmit(onSumbit)}

@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { AppCtx } from '../../contexts/global-context';
 import { Popup } from '../../components/popup';
+import { Helmet } from 'react-helmet-async';
 
 interface IDeleteUserFormData {
   confirmMessage: string;
@@ -48,6 +49,9 @@ export const Settings = () => {
   };
   return (
     <div className="relative w-3/4 bg-gray-700 min-h-screen flex flex-col items-center justify-center">
+      <Helmet>
+        <title>Delete Account</title>
+      </Helmet>
       {modalToggle && (
         <Popup
           description={

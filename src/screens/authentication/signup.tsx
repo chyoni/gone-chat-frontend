@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -52,6 +53,9 @@ export const Signup: React.FC<{}> = () => {
 
   return (
     <div className="container min-w-full min-h-screen flex">
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
       <div
         className="w-3/6 min-h-screen bg-cover bg-center flex flex-col items-center"
         style={{ backgroundImage: `url(${bgImg})` }}

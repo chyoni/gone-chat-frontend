@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { ErrMessage } from '../../components/error-message';
@@ -60,6 +61,9 @@ export const ChangePassword = () => {
 
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center justify-center bg-gray-700">
+      <Helmet>
+        <title>Change Password</title>
+      </Helmet>
       <div className="border border-gray-200 rounded-md w-1/3 p-2">
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
