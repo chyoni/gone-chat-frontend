@@ -1,7 +1,7 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { AppCtx } from '../../contexts/global-context';
@@ -14,8 +14,25 @@ interface IFormFields {
   message: string;
 }
 
+type fromUser = {
+  id: number;
+  username: string;
+  alias?: string;
+  avatar?: string;
+  created_at: number;
+  updated_at: number;
+};
+
+interface IRoomMessages {
+  roomId: number;
+  from: fromUser;
+  message: string;
+  created: number;
+}
+
 export const Room = () => {
   const { roomId } = useParams<IParams>();
+  const [roomMessages, setRoomMessages] = useState<IRoomMessages[]>([]);
   const {
     register,
     setValue,
@@ -29,13 +46,34 @@ export const Room = () => {
     `ws://localhost:4040/ws/${roomId}?auth=${ctx.me.id}`
   );
 
+  useLayoutEffect(() => {
+    axios
+      .get(`http://localhost:4000/room/${roomId}/messages`, {
+        headers: {
+          Authorization: `Bearer ${ctx.currentUser}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setRoomMessages(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.token_refresh_flag) {
+          ctx.removeToken();
+          window.location.replace('/');
+        }
+      });
+  }, [roomId, ctx]);
+
   useEffect(() => {
     ws.onerror = (err) => {
       console.log(err);
       ws.close();
     };
     ws.onmessage = (event) => {
-      console.log(JSON.parse(event.data));
+      const message = JSON.parse(event.data);
+      setRoomMessages([...roomMessages, message]);
     };
   });
 
@@ -53,9 +91,7 @@ export const Room = () => {
           },
         }
       )
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => {
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
@@ -68,10 +104,15 @@ export const Room = () => {
     e: React.KeyboardEvent
   ) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      onSumbit(getValues());
+      e.preventDefault();
+      if (getValues().message !== '') {
+        onSumbit(getValues());
+      }
       setValue('message', '');
     }
   };
+
+  console.log(roomMessages);
 
   return (
     <div className="w-3/4 h-auto max-h-full px-3 bg-gray-700 flex flex-col items-center justify-center">
@@ -82,7 +123,7 @@ export const Room = () => {
         className="w-full h-full border-b-2 border-gray-300"
         style={{ overflowY: 'hidden' }}
       >
-        <div className="h-full"></div>
+        <div className="w-full h-full"></div>
       </div>
       <div className="flex h-auto mt-4 w-full">
         <form

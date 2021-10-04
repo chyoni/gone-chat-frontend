@@ -44,7 +44,7 @@ export const Sidebar = () => {
       .then((res) => {
         if (res.status === 200) {
           ctx.removeToken();
-          history.push('/');
+          window.location.replace('/');
           return;
         }
         toast.error('something wrong happen. try again later.');
@@ -52,6 +52,7 @@ export const Sidebar = () => {
       .catch((err) => {
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
+          window.location.replace('/');
         }
       });
   };
@@ -72,6 +73,7 @@ export const Sidebar = () => {
         console.log(err);
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
+          window.location.replace('/');
         }
       });
     // eslint-disable-next-line
@@ -92,6 +94,7 @@ export const Sidebar = () => {
       .catch((err) => {
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
+          window.location.replace('/');
         }
       });
     // eslint-disable-next-line

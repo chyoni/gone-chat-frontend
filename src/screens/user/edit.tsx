@@ -46,6 +46,7 @@ export const Edit = () => {
       .catch((err) => {
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
+          window.location.replace('/');
         }
       });
   };
@@ -74,6 +75,7 @@ export const Edit = () => {
           if (err.response.data.token_refresh_flag) {
             setLoading(false);
             ctx.removeToken();
+            window.location.replace('/');
           }
         });
     } else {

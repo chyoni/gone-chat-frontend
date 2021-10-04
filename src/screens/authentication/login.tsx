@@ -29,6 +29,7 @@ export const Login: React.FC<{}> = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          ctx.modifyMe(res.data);
           ctx.modifyCurrentUser(res.data.token.access_token);
         }
       })

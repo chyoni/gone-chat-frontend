@@ -42,6 +42,7 @@ export const Settings = () => {
       .catch((err) => {
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
+          window.location.replace('/');
         }
       });
   };

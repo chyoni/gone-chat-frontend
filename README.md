@@ -49,3 +49,5 @@
 - #22 User Deleted and Implement Modal POPUP
 
 - #23 Chat Room 1
+
+- #24 Chat Room 2 (Get Message From Server)

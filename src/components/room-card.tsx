@@ -32,6 +32,7 @@ export const RoomCard: React.FC<IRoomCardProps> = ({ roomId }) => {
       .catch((err) => {
         if (err.response.data.token_refresh_flag) {
           ctx.removeToken();
+          window.location.replace('/');
         }
       });
     // eslint-disable-next-line
