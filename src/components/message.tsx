@@ -15,21 +15,30 @@ export const Message: React.FC<IProps> = ({ message }) => {
         <img
           src={message.from.avatar ? message.from.avatar : defaultImg}
           alt={'avatar'}
-          className="w-11 h-11 rounded-full mr-3"
+          className="w-12 h-12 rounded-full mr-3"
         />
       )}
       <div
-        className={`w-auto max-w-xs p-2 rounded-xl h-full flex flex-wrap ${
-          message.from.id === ctx.me.id ? 'bg-white' : 'bg-blue-400'
+        className={`flex flex-col ${
+          message.from.id === ctx.me.id ? 'items-end' : ''
         }`}
       >
-        <div>{message.message}</div>
+        <span className="text-white text-sm">
+          {message.from.alias ? message.from.alias : message.from.username}
+        </span>
+        <div
+          className={`w-auto max-w-xs p-2 rounded-xl h-full flex flex-wrap ${
+            message.from.id === ctx.me.id ? 'bg-white' : 'bg-blue-400'
+          }`}
+        >
+          <div>{message.message}</div>
+        </div>
       </div>
       {message.from.id === ctx.me.id && (
         <img
           src={message.from.avatar ? message.from.avatar : defaultImg}
           alt={'avatar'}
-          className="w-11 h-11 rounded-full ml-3"
+          className="w-12 h-12 rounded-full ml-3"
         />
       )}
     </div>

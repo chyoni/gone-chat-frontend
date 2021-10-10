@@ -61,9 +61,11 @@ export const Room = () => {
         }
       })
       .catch((err) => {
-        if (err.response.data.token_refresh_flag) {
-          ctx.removeToken();
-          window.location.replace('/');
+        if (err.response !== undefined) {
+          if (err.response.data.token_refresh_flag) {
+            ctx.removeToken();
+            window.location.replace('/');
+          }
         }
       });
   }, [roomId, ctx]);
@@ -124,21 +126,22 @@ export const Room = () => {
       </div>
       <div className="w-full h-full border-b-2 border-gray-300 box-border">
         <div className="w-full overflow-y-auto flex flex-col">
-          {roomMessages.map((message, index) => {
-            return (
-              <div key={index} className="w-full mb-2">
-                {message.from.id === ctx.me.id ? (
-                  <div className="h-full float-right px-3 py-2">
-                    <Message message={message} />
-                  </div>
-                ) : (
-                  <div className="h-full float-left px-3 py-2">
-                    <Message message={message} />
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {roomMessages &&
+            roomMessages.map((message, index) => {
+              return (
+                <div key={index} className="w-full mb-2">
+                  {message.from.id === ctx.me.id ? (
+                    <div className="h-full float-right px-3 py-2">
+                      <Message message={message} />
+                    </div>
+                  ) : (
+                    <div className="h-full float-left px-3 py-2">
+                      <Message message={message} />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className="flex mt-4 w-full">

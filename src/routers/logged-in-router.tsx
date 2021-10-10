@@ -7,6 +7,7 @@ import { Sidebar } from '../components/sidebar';
 import { ChangePassword } from '../screens/user/change-password';
 import { Settings } from '../screens/user/settings';
 import { Room } from '../screens/room/room';
+import { Rooms } from '../screens/room/rooms';
 
 const LoggedInRoutes = () => {
   return (
@@ -25,6 +26,9 @@ const LoggedInRoutes = () => {
       </Route>
       <Route path={'/room/:roomId'} exact={true}>
         <Room />
+      </Route>
+      <Route path={'/rooms'} exact={true}>
+        <Rooms />
       </Route>
       <Route path={'*'}>
         <NotFoundPage />
